@@ -22,7 +22,7 @@
 
 Name:          %{github_name}
 Version:       %{github_version}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       libsass command line driver
 
 Group:         Development/Tools
@@ -33,7 +33,7 @@ Source0:       https://github.com/%{github_owner}/%{github_name}/archive/%{githu
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc >= 4.6
-BuildRequires: help2man
+#BuildRequires: help2man
 BuildRequires: libsass-devel
 BuildRequires: libtool
 # Tests
@@ -62,14 +62,14 @@ autoreconf --force --install
 %{configure}
 make %{?_smp_mflags}
 
-help2man --no-info --version-string=%{version} --output sassc.1 sassc
+#help2man --no-info --version-string=%{version} --output sassc.1 sassc
 
 
 %install
 %make_install
 
-mkdir -p %{buildroot}%{_mandir}/man1
-install -pm 0644 sassc.1 %{buildroot}%{_mandir}/man1/
+#mkdir -p %{buildroot}%{_mandir}/man1
+#install -pm 0644 sassc.1 %{buildroot}%{_mandir}/man1/
 
 
 %check
@@ -85,10 +85,13 @@ make test
 %license LICENSE
 %doc Readme.md
 %doc TODO
-%doc %{_mandir}/man1/sassc.1*
+#%doc %{_mandir}/man1/sassc.1*
 %{_bindir}/sassc
 
 
 %changelog
+* Mon Jul 06 2015 Shawn Iwinski <shawn.iwinski@gmail.com> - 3.2.5-2
+- Temporarily disable help2man because of failing COPR build
+
 * Thu Jul 02 2015 Shawn Iwinski <shawn.iwinski@gmail.com> - 3.2.5-1
 - Initial package
