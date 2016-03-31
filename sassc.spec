@@ -4,7 +4,7 @@
 # https://copr.fedoraproject.org/coprs/siwinski/libsass/
 # https://github.com/siwinski/libsass-rpms
 #
-# Copyright (c) 2015 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2015-2016 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -14,15 +14,15 @@
 
 %global github_owner     sass
 %global github_name      sassc
-%global github_version   3.2.5
-%global github_commit    5d43e94f43f305dd6cc3381463976832b9ef6d98
+%global github_version   3.3.4
+%global github_commit    8d3d72c2f62d4c00759da96f845c7bae364020e2
 
 # Build using "--with tests" to enable tests
 %global with_tests 0%{?_with_tests:1}
 
 Name:          %{github_name}
 Version:       %{github_version}
-Release:       2%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       libsass command line driver
 
 Group:         Development/Tools
@@ -34,6 +34,7 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc >= 4.6
 #BuildRequires: help2man
+# TODO: This needs to be the same version!
 BuildRequires: libsass-devel
 BuildRequires: libtool
 # Tests
@@ -62,14 +63,14 @@ autoreconf --force --install
 %{configure}
 make %{?_smp_mflags}
 
-#help2man --no-info --version-string=%{version} --output sassc.1 sassc
+#help2man --no-info --version-string=%%{version} --output sassc.1 sassc
 
 
 %install
 %make_install
 
-#mkdir -p %{buildroot}%{_mandir}/man1
-#install -pm 0644 sassc.1 %{buildroot}%{_mandir}/man1/
+#mkdir -p %%{buildroot}%%{_mandir}/man1
+#install -pm 0644 sassc.1 %%{buildroot}%%{_mandir}/man1/
 
 
 %check
@@ -85,13 +86,16 @@ make test
 %license LICENSE
 %doc Readme.md
 %doc TODO
-#%doc %{_mandir}/man1/sassc.1*
+#%doc %%{_mandir}/man1/sassc.1*
 %{_bindir}/sassc
 
 
 %changelog
-* Mon Jul 06 2015 Shawn Iwinski <shawn.iwinski@gmail.com> - 3.2.5-2
+* Thu Mar 31 2016 Shawn Iwinski <shawn@iwin.ski> - 3.3.4-1
+- Updated to 3.3.4
+
+* Mon Jul 06 2015 Shawn Iwinski <shawn@iwin.ski> - 3.2.5-2
 - Temporarily disable help2man because of failing COPR build
 
-* Thu Jul 02 2015 Shawn Iwinski <shawn.iwinski@gmail.com> - 3.2.5-1
+* Thu Jul 02 2015 Shawn Iwinski <shawn@iwin.ski> - 3.2.5-1
 - Initial package
