@@ -4,7 +4,7 @@
 # https://copr.fedoraproject.org/coprs/siwinski/libsass/
 # https://github.com/siwinski/libsass-rpms
 #
-# Copyright (c) 2015 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2015-2016 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -14,15 +14,15 @@
 
 %global github_owner     sass
 %global github_name      libsass
-%global github_version   3.2.5
-%global github_commit    0e6b4a2850092356aa3ece07c6b249f0221caced
+%global github_version   3.3.4
+%global github_commit    213339a802827fab23cb61b79ad7d592fad33c2d
 
 # Build using "--with tests" to enable tests
 %global with_tests 0%{?_with_tests:1}
 
 Name:          libsass
 Version:       %{github_version}
-Release:       1%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A C/C++ implementation of a Sass compiler
 
 Group:         Development/Libraries
@@ -112,5 +112,8 @@ make test
 
 
 %changelog
-* Thu Jul 02 2015 Shawn Iwinski <shawn.iwinski@gmail.com> - 3.2.5-1
+* Thu Mar 31 2016 Shawn Iwinski <shawn@iwin.ski> - 3.3.4-1
+- Updated to 3.3.4
+
+* Thu Jul 02 2015 Shawn Iwinski <shawn@iwin.ski> - 3.2.5-1
 - Initial package
